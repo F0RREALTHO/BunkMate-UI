@@ -19,7 +19,7 @@ body {
 #root {
   max-width: 600px;
   margin: auto;
-  padding: 1.5rem 1rem 6rem 1rem;
+  padding: 1rem 1rem 6rem 1rem; /* Reduced top padding for mobile */
 }
 
 /* --- Authentication Pages --- */
@@ -103,7 +103,7 @@ body {
 }
 
 .date-display {
-  font-size: 1.2rem;
+  font-size: 1rem; /* Slightly smaller for mobile */
   font-weight: 600;
   color: var(--text-secondary);
 }
@@ -116,7 +116,7 @@ body {
 }
 
 .header-main h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem; /* Smaller for mobile */
   margin: 0;
 }
 
@@ -134,7 +134,7 @@ body {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  padding: 0 1.5rem;
+  padding: 0 1rem; /* Reduced padding */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -152,32 +152,30 @@ body {
 }
 
 .header-actions button:last-child {
-    width: 44px;
-    padding: 0;
-    border-radius: 50%;
-    font-size: 1.5rem;
+  width: 44px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.5rem;
 }
 
 /* --- Subject Card --- */
 .subject-card {
   background-color: var(--card-color);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1rem; /* Reduced padding for mobile */
   margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
-  
 }
 
 .card-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; /* Align to top for better mobile layout */
   margin-bottom: 1rem;
-  
+  gap: 1rem;
 }
 
 .card-top-left {
-  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -186,18 +184,15 @@ body {
 
 .card-top-left h2 {
   margin: 0 0 0.5rem 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem; /* Smaller for mobile */
 }
 .card-top-left p {
   margin: 0;
   color: var(--text-secondary);
+  font-size: 0.9rem; /* Smaller for mobile */
 }
 .card-top-left .stats {
   margin-bottom: 8px;
-  height: 66px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 .card-top-left .stats p {
   margin: 2px 0;
@@ -205,17 +200,17 @@ body {
 }
 .card-top-left .stats .number {
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1em; /* Relative to parent p */
 }
 .card-top-left p.status {
   font-weight: bold;
   margin-top: 8px;
-  height: 20px;
+  min-height: 20px; /* Use min-height to prevent layout shifts */
   display: flex;
   align-items: center;
 }
 .card-top-left .requirement {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-top: 8px;
   color: var(--text-secondary);
 }
@@ -226,8 +221,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 120px;
-  min-height: 120px;
+  width: 100px;
+  height: 100px;
+}
+
+.progress-circle-container svg {
+  overflow: visible; /* Allow the glow to be visible */
 }
 
 .progress-circle-progress {
@@ -236,19 +235,17 @@ body {
   transition: stroke-dashoffset 0.5s ease-in-out;
 }
 
-/* Green glow for good attendance */
 .progress-circle-progress[stroke="#28a745"] {
-  filter: drop-shadow(0 0 8px rgba(40, 167, 69, 0.6));
+  filter: drop-shadow(0 0 6px rgba(40, 167, 69, 0.6));
 }
 
-/* Red glow for poor attendance */
 .progress-circle-progress[stroke="#dc3545"] {
-  filter: drop-shadow(0 0 8px rgba(220, 53, 69, 0.6));
+  filter: drop-shadow(0 0 6px rgba(220, 53, 69, 0.6));
 }
 
 .progress-circle-text {
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
@@ -257,20 +254,25 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
+  padding-top: 1rem;
+  margin-top: 1rem;
   border-top: 1px solid var(--border-color);
 }
 
 .control-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  text-align: center;
 }
 
 .control-group label {
+  display: block;
   font-weight: 600;
   color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.control-group .buttons {
+  display: flex;
+  gap: 0.75rem;
 }
 
 .control-group button {
@@ -285,13 +287,24 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
+}
+
+.control-group .btn-inc {
+  background-color: var(--accent-green);
+  color: white;
+}
+
+.control-group .btn-dec {
+  background-color: var(--accent-red);
+  color: white;
 }
 
 .delete-btn {
-  background-color: var(--accent-red);
-  color: white;
-  border: none;
-  padding: 0.5rem 1.5rem;
+  background-color: rgba(220, 53, 69, 0.15);
+  color: var(--accent-red);
+  border: 1px solid var(--accent-red);
+  padding: 0.5rem 1.25rem;
   border-radius: 20px;
   font-weight: bold;
   cursor: pointer;
@@ -361,7 +374,7 @@ body {
   border: none;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-primary);
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
   padding: 0.5rem 0;
   margin-bottom: 3rem;
@@ -385,13 +398,13 @@ body {
   background: none;
   border: none;
   color: var(--accent-green);
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
 }
 
 .stepper .stepper-value {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin: 0.5rem 0;
 }
@@ -412,7 +425,7 @@ body {
   cursor: pointer;
 }
 
-/* Error message styling */
+/* --- Utility Classes --- */
 .error {
   color: var(--accent-red);
   background-color: rgba(220, 53, 69, 0.1);
@@ -423,27 +436,6 @@ body {
   text-align: center;
 }
 
-/* Prevent SubjectCard from shifting when attendance changes */
-.subject-card {
-  min-height: 260px; /* Adjust if needed */
-  transition: all 0.3s ease-in-out;
-}
-
-/* .card-top-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 160px;
-} */
-
-/* .card-top-left .status {
-  font-weight: bold;
-  margin-top: 8px;
-  height: 20px;
-  min-height: 20px;
-  display: flex;
-  align-items: center;
-} */
 .success {
   color: var(--accent-green);
   background-color: rgba(40, 167, 69, 0.1);
@@ -458,4 +450,61 @@ body {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
+}
+
+/* --- MEDIA QUERIES FOR RESPONSIVENESS --- */
+@media (min-width: 600px) {
+  #root {
+    padding: 1.5rem 1rem 6rem 1rem;
+  }
+
+  .header-main h1 {
+    font-size: 2.5rem;
+  }
+
+  .subject-card {
+    padding: 1.5rem;
+  }
+
+  .card-top-left h2 {
+    font-size: 1.75rem;
+  }
+
+  .card-top-left p {
+    font-size: 1rem;
+  }
+
+  .progress-circle-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .progress-circle-text {
+    font-size: 1.5rem;
+  }
+
+  .card-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .delete-btn {
+    width: auto;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .control-group label {
+    display: inline;
+    margin-bottom: 0;
+  }
 }
