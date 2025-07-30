@@ -19,7 +19,7 @@ body {
 #root {
   max-width: 600px;
   margin: auto;
-  padding: 1rem 1rem 6rem 1rem; /* Reduced top padding for mobile */
+  padding: 1rem 1rem 6rem 1rem;
 }
 
 /* --- Authentication Pages --- */
@@ -103,7 +103,7 @@ body {
 }
 
 .date-display {
-  font-size: 1rem; /* Slightly smaller for mobile */
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-secondary);
 }
@@ -116,7 +116,7 @@ body {
 }
 
 .header-main h1 {
-  font-size: 1.75rem; /* Smaller for mobile */
+  font-size: 1.75rem;
   margin: 0;
 }
 
@@ -134,7 +134,7 @@ body {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  padding: 0 1rem; /* Reduced padding */
+  padding: 0 1rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -162,7 +162,7 @@ body {
 .subject-card {
   background-color: var(--card-color);
   border-radius: 16px;
-  padding: 1rem; /* Reduced padding for mobile */
+  padding: 1rem;
   margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
 }
@@ -170,7 +170,7 @@ body {
 .card-top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Align to top for better mobile layout */
+  align-items: flex-start;
   margin-bottom: 1rem;
   gap: 1rem;
 }
@@ -184,12 +184,12 @@ body {
 
 .card-top-left h2 {
   margin: 0 0 0.5rem 0;
-  font-size: 1.5rem; /* Smaller for mobile */
+  font-size: 1.5rem;
 }
 .card-top-left p {
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.9rem; /* Smaller for mobile */
+  font-size: 0.9rem;
 }
 .card-top-left .stats {
   margin-bottom: 8px;
@@ -200,12 +200,12 @@ body {
 }
 .card-top-left .stats .number {
   font-weight: bold;
-  font-size: 1em; /* Relative to parent p */
+  font-size: 1em;
 }
 .card-top-left p.status {
   font-weight: bold;
   margin-top: 8px;
-  min-height: 20px; /* Use min-height to prevent layout shifts */
+  min-height: 20px;
   display: flex;
   align-items: center;
 }
@@ -226,7 +226,7 @@ body {
 }
 
 .progress-circle-container svg {
-  overflow: visible; /* Allow the glow to be visible */
+  overflow: visible;
 }
 
 .progress-circle-progress {
@@ -321,7 +321,7 @@ body {
   cursor: pointer;
 }
 
-/* --- Bottom Navigation --- */
+/* --- Bottom Navigation (Single Welcome Message Bar) --- */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -333,20 +333,36 @@ body {
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: center;
-  padding: 0.5rem 0;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  min-height: 60px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
 
-.nav-item {
+.nav-item.welcome-message-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
+  gap: 2px;
+  text-align: center;
 }
 
-.nav-item.active {
+.nav-item.welcome-message-bar label {
   color: var(--accent-green);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.nav-item.welcome-message-bar .tagline {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
 }
 
 /* --- Add Subject Page --- */
@@ -405,7 +421,7 @@ body {
   text-align: center;
 }
 
-/* --- UPDATED STEPPER BUTTON STYLES --- */
+/* --- Stepper Button Styles --- */
 .stepper button {
   background: #2a2a2a;
   border: 1px solid #444;
@@ -420,13 +436,11 @@ body {
   transition: all 0.2s ease;
 }
 
-/* Up buttons (first button in each stepper) */
 .stepper button:first-child:not(:disabled) {
   color: var(--accent-green);
   filter: drop-shadow(0 0 8px rgba(40, 167, 69, 0.7));
 }
 
-/* Down buttons (last button in each stepper) */
 .stepper button:last-child:not(:disabled) {
   color: var(--accent-red);
   filter: drop-shadow(0 0 8px rgba(220, 53, 69, 0.7));
@@ -438,8 +452,6 @@ body {
   cursor: not-allowed;
   filter: none;
 }
-/* --- END OF UPDATED STYLES --- */
-
 
 .stepper .stepper-value {
   font-size: 2.5rem;
@@ -488,8 +500,8 @@ body {
   opacity: 0.4;
   pointer-events: none;
   cursor: not-allowed;
-  background-color: #333 !important; /* Force a neutral grey background */
-  color: #6b7280 !important; /* Dim the text color */
+  background-color: #333 !important;
+  color: #6b7280 !important;
 }
 
 /* --- MEDIA QUERIES FOR RESPONSIVENESS --- */
@@ -558,4 +570,154 @@ body {
   background-color: #2a2a2a;
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+/* --- Onboarding Styles --- */
+.onboarding-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.onboarding-message {
+  margin-bottom: 2rem;
+}
+
+.onboarding-message h2 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.onboarding-message p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Style for the tagline within the onboarding message */
+.onboarding-message .tagline {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+/* Style for the new "Add your first subject" message */
+.onboarding-message p:last-of-type {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+
+.onboarding-add-button {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #1a1a1a;
+  border: none;
+  padding: 1.25rem 2rem;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.4);
+  animation: gentlePulse 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+  min-width: 280px;
+}
+
+.onboarding-add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.6);
+}
+
+.onboarding-add-button:active {
+  transform: translateY(0);
+}
+
+/* Glowing plus button */
+.glowing-plus {
+  background-color: #ffd700 !important;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4) !important;
+  animation: pulseGlow 2s ease-in-out infinite !important;
+  border: 2px solid #ffd700 !important;
+  color: #1a1a1a !important;
+}
+
+/* --- Animations --- */
+@keyframes gentlePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(255, 215, 0, 0.6);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.6);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 600px) {
+  .onboarding-container {
+    padding: 1.5rem;
+    min-height: 40vh;
+  }
+
+  .onboarding-message h2 {
+    font-size: 1.5rem;
+  }
+
+  .onboarding-message p {
+    font-size: 1rem;
+  }
+  .onboarding-message .tagline {
+    font-size: 0.85rem;
+  }
+  .onboarding-message p:last-of-type {
+    font-size: 1rem;
+  }
+
+  .onboarding-add-button {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    min-width: 240px;
+  }
+
+  .bottom-nav {
+    padding: 0.5rem 0.8rem;
+    min-height: 55px;
+  }
+  .nav-item.welcome-message-bar label {
+    font-size: 0.9rem;
+  }
+  .nav-item.welcome-message-bar .tagline {
+    font-size: 0.65rem;
+  }
 }

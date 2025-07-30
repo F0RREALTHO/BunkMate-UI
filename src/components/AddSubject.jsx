@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import api from '../services/api.js';
 
-// A simple SVG arrow component for the stepper buttons
 const ArrowIcon = ({ direction = 'up' }) => (
     <svg
         width="24"
