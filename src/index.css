@@ -288,16 +288,27 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  transition: all 0.2s ease;
 }
 
 .control-group .btn-inc {
   background-color: var(--accent-green);
   color: white;
+  filter: drop-shadow(0 0 8px rgba(40, 167, 69, 0.7));
 }
 
 .control-group .btn-dec {
   background-color: var(--accent-red);
   color: white;
+  filter: drop-shadow(0 0 8px rgba(220, 53, 69, 0.7));
+}
+
+.control-group .btn-dec:disabled {
+  background-color: #333;
+  color: #4a4a4a;
+  cursor: not-allowed;
+  filter: none;
+  opacity: 0.5;
 }
 
 .delete-btn {
@@ -394,14 +405,41 @@ body {
   text-align: center;
 }
 
+/* --- UPDATED STEPPER BUTTON STYLES --- */
 .stepper button {
-  background: none;
-  border: none;
-  color: var(--accent-green);
-  font-size: 1.5rem;
+  background: #2a2a2a;
+  border: 1px solid #444;
   cursor: pointer;
-  padding: 0.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto;
+  transition: all 0.2s ease;
 }
+
+/* Up buttons (first button in each stepper) */
+.stepper button:first-child:not(:disabled) {
+  color: var(--accent-green);
+  filter: drop-shadow(0 0 8px rgba(40, 167, 69, 0.7));
+}
+
+/* Down buttons (last button in each stepper) */
+.stepper button:last-child:not(:disabled) {
+  color: var(--accent-red);
+  filter: drop-shadow(0 0 8px rgba(220, 53, 69, 0.7));
+}
+
+.stepper button:disabled {
+  color: #4a4a4a;
+  background: #222;
+  cursor: not-allowed;
+  filter: none;
+}
+/* --- END OF UPDATED STYLES --- */
+
 
 .stepper .stepper-value {
   font-size: 2.5rem;
@@ -447,9 +485,11 @@ body {
 }
 
 .disabled-btn {
-  opacity: 0.5;
+  opacity: 0.4;
   pointer-events: none;
   cursor: not-allowed;
+  background-color: #333 !important; /* Force a neutral grey background */
+  color: #6b7280 !important; /* Dim the text color */
 }
 
 /* --- MEDIA QUERIES FOR RESPONSIVENESS --- */
