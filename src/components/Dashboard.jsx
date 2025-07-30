@@ -37,7 +37,7 @@ const Dashboard = () => {
       <div className="dashboard-header">
         <p className="date-display">{currentDate}</p>
         <div className="header-main">
-          <h1>Your Attendance</h1>
+          <h1>Hello {username},Your Attendance</h1>
           <div className="header-actions">
             <button onClick={logout} title="Logout">Logout</button>
             <button onClick={() => navigate('/add')} title="Add Subject">+</button>
