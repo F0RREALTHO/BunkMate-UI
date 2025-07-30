@@ -6,20 +6,25 @@ const Login = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { registered } = location.state || {}; // ✅ Read success flag
+  const { registered } = location.state || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true); 
+    
     try {
       await login(name, password);
       navigate('/');
     } catch (err) {
       setError('Invalid username or password. Please try again.');
       console.error(err);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -35,6 +40,7 @@ const Login = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          disabled={isLoading} 
         />
         <input
           type="password"
@@ -42,8 +48,11 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          disabled={isLoading} 
         />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
       <p>
         Don't have an account? <Link to="/register">Sign Up</Link>

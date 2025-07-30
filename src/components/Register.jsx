@@ -6,21 +6,28 @@ const Register = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
     if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
       return;
     }
+    
+    setIsLoading(true);
+    
     try {
       await api.post('/student', { name, password });
-      navigate('/login', { state: { registered: true } }); // ✅ Pass success flag
+      navigate('/login', { state: { registered: true } });
     } catch (err) {
       setError(err.response?.data?.error || 'Registration failed.');
       console.error(err);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -35,6 +42,7 @@ const Register = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          disabled={isLoading} 
         />
         <input
           type="password"
@@ -42,11 +50,14 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          disabled={isLoading} 
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Creating Account...' : 'Sign Up'} 
+        </button>
       </form>
       <p>
-        Already have an account? <Link to="/login">Login</Link>
+        Already have an account? <Link to="/login">Sign Up</Link>
       </p>
     </div>
   );
