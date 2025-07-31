@@ -9,28 +9,32 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
 );
 
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Check if the error is a 401 OR 403 error
-        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-            // Remove the invalid token
+        const originalRequest = error.config;
+        const status = error.response?.status;
+
+        const isAuthRoute = originalRequest.url?.endsWith('/student/login') ||
+            originalRequest.url?.endsWith('/student');
+
+        if (status && (status === 401 || status === 403) && !isAuthRoute) {
             localStorage.removeItem('token');
-            // Reload the page to reset the app state and redirect to login
-            window.location.reload();
+            window.location.replace('/login');
         }
+
         return Promise.reject(error);
     }
 );
