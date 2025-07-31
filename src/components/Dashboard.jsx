@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import api from '../services/api.js';
 import SubjectCard from './SubjectCard.jsx';
+import DeleteAccountModal from './DeleteAccountModal.jsx';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { username, logout } = useAuth();
   const [subjects, setSubjects] = useState([]);
   const [currentDate, setCurrentDate] = useState('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
     const date = new Date();
@@ -30,6 +32,17 @@ const Dashboard = () => {
   useEffect(() => {
     fetchSubjects();
   }, [fetchSubjects]);
+
+  const handleDeleteAccount = async () => {
+    try {
+      await api.delete(`/student/${username}`);
+      logout();
+      navigate('/login'); // Navigate to login page after deletion
+    } catch (err) {
+      console.error('Failed to delete account:', err);
+      // You could add user-facing error feedback here
+    }
+  };
 
   return (
       <>
@@ -65,7 +78,7 @@ const Dashboard = () => {
               </button>
             </div>
         ) : (
-            <> {/* Fragment to hold multiple elements if subjects exist */}
+            <>
               <div className="subject-list">
                 {subjects.map((subject) => (
                     <SubjectCard
@@ -77,15 +90,30 @@ const Dashboard = () => {
                 ))}
               </div>
 
-              {/* Bottom Bar with Welcome Message - only visible when subjects exist */}
+              {/* Bottom Bar with Welcome Message and Trash Button */}
               <div className="bottom-nav">
-                <div className="nav-item welcome-message-bar"> {/* New class for specific styling */}
+                <div className="nav-item welcome-message-bar">
                   <label>Welcome to BunkSy! 📚 💓</label>
                   <p className="tagline">Track. Skip. Bunk.</p>
                 </div>
+                <button
+                    className="trash-btn"
+                    onClick={() => setIsDeleteModalOpen(true)}
+                    title="Delete Account"
+                >
+                  🗑️
+                </button>
               </div>
             </>
         )}
+
+        {/* Delete Account Modal */}
+        <DeleteAccountModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            onConfirm={handleDeleteAccount}
+            username={username}
+        />
       </>
   );
 };
