@@ -16,12 +16,12 @@ const ArrowIcon = ({ direction = 'up' }) => (
     </svg>
 );
 
-
 const AddSubject = () => {
   const [name, setName] = useState('');
   const [attended, setAttended] = useState(0);
   const [missed, setMissed] = useState(0);
   const [requirement, setRequirement] = useState(75);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
   const { username } = useAuth();
   const navigate = useNavigate();
 
@@ -35,10 +35,19 @@ const AddSubject = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!name.trim()) {
       alert('Please enter a subject name.');
       return;
     }
+
+    // Prevent multiple submissions
+    if (isLoading) {
+      return;
+    }
+
+    setIsLoading(true); // Set loading to true
+
     const newSubject = {
       name,
       attendedClasses: attended,
@@ -52,13 +61,21 @@ const AddSubject = () => {
     } catch (err) {
       alert(err.response?.data?.error || 'Failed to add subject.');
       console.error(err);
+    } finally {
+      setIsLoading(false); // Reset loading state
     }
   };
 
   return (
       <div className="add-subject-page">
         <header className="add-subject-header">
-          <button onClick={() => navigate('/')} className="back-btn">←</button>
+          <button
+              onClick={() => navigate('/')}
+              className="back-btn"
+              disabled={isLoading} // Disable back button during loading
+          >
+            ←
+          </button>
           <h2>Subject Name</h2>
         </header>
 
@@ -69,12 +86,17 @@ const AddSubject = () => {
               placeholder="Ex. Biology"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              disabled={isLoading} // Disable input during loading
           />
 
           <div className="stepper-grid">
             {/* Attended Stepper */}
             <div className="stepper">
-              <button type="button" onClick={() => setAttended(p => p + 1)}>
+              <button
+                  type="button"
+                  onClick={() => setAttended(p => p + 1)}
+                  disabled={isLoading} // Disable during loading
+              >
                 <ArrowIcon direction="up" />
               </button>
               <div className="stepper-value">{attended}</div>
@@ -82,7 +104,7 @@ const AddSubject = () => {
               <button
                   type="button"
                   onClick={() => setAttended(p => p - 1)}
-                  disabled={attended === 0}
+                  disabled={attended === 0 || isLoading} // Disable during loading
               >
                 <ArrowIcon direction="down" />
               </button>
@@ -90,7 +112,11 @@ const AddSubject = () => {
 
             {/* Missed Stepper */}
             <div className="stepper">
-              <button type="button" onClick={() => setMissed(p => p + 1)}>
+              <button
+                  type="button"
+                  onClick={() => setMissed(p => p + 1)}
+                  disabled={isLoading} // Disable during loading
+              >
                 <ArrowIcon direction="up" />
               </button>
               <div className="stepper-value">{missed}</div>
@@ -98,7 +124,7 @@ const AddSubject = () => {
               <button
                   type="button"
                   onClick={() => setMissed(p => p - 1)}
-                  disabled={missed === 0}
+                  disabled={missed === 0 || isLoading} // Disable during loading
               >
                 <ArrowIcon direction="down" />
               </button>
@@ -109,7 +135,7 @@ const AddSubject = () => {
               <button
                   type="button"
                   onClick={() => handleRequirementChange(5)}
-                  disabled={requirement === 95}
+                  disabled={requirement === 95 || isLoading} // Disable during loading
               >
                 <ArrowIcon direction="up" />
               </button>
@@ -118,14 +144,20 @@ const AddSubject = () => {
               <button
                   type="button"
                   onClick={() => handleRequirementChange(-5)}
-                  disabled={requirement === 5}
+                  disabled={requirement === 5 || isLoading} // Disable during loading
               >
                 <ArrowIcon direction="down" />
               </button>
             </div>
           </div>
 
-          <button type="submit" className="add-btn-primary">Add</button>
+          <button
+              type="submit"
+              className="add-btn-primary"
+              disabled={isLoading}
+          >
+            {isLoading ? 'Adding...' : 'Add'} {/* Show loading text */}
+          </button>
         </form>
       </div>
   );

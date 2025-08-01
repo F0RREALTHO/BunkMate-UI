@@ -53,7 +53,7 @@ const SubjectCard = ({ subject, onUpdate }) => {
           </div>
         </div>
 
-        {/* --- THIS IS THE UPDATED SECTION --- */}
+        {}
         <div className="card-controls">
           <div className="control-group">
             <label>Attended</label>
