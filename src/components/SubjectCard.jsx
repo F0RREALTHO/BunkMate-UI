@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../services/api.js';
 import CircularProgress from './CircularProgress.jsx';
+
 import { useAuth } from '../context/AuthContext.jsx';
 
 const SubjectCard = ({ subject, onUpdate }) => {
