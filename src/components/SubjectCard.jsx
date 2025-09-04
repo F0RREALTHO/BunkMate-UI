@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import api from '../services/api.js';
 import CircularProgress from './CircularProgress.jsx';
-
 import { useAuth } from '../context/AuthContext.jsx';
+import DeleteAccountModal from './DeleteAccountModal.jsx';
 
-const SubjectCard = ({ subject, onUpdate }) => {
+const SubjectCard = ({ subject, username, onUpdate }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const { username } = useAuth();
 
   const handleUpdate = async (type, operation) => {
     try {
@@ -18,7 +17,6 @@ const SubjectCard = ({ subject, onUpdate }) => {
   };
 
   const handleDelete = async () => {
-    // We are replacing window.confirm with a custom modal later
     if (window.confirm(`Are you sure you want to delete ${subject.name}?`)) {
       try {
         await api.delete(`/student/${username}/subject/${subject.name}`);
@@ -50,11 +48,13 @@ const SubjectCard = ({ subject, onUpdate }) => {
           </div>
 
           <div className="card-top-right">
-            <CircularProgress percentage={subject.currentAttendancePercentage} />
+            <CircularProgress
+                percentage={subject.currentAttendancePercentage}
+                requiredPercentage={subject.requiredPercentage}
+            />
           </div>
         </div>
 
-        {/* --- THIS IS THE UPDATED SECTION --- */}
         <div className="card-controls">
           <div className="control-group">
             <label>Attended</label>
